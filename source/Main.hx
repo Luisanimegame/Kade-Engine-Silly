@@ -94,7 +94,7 @@ class Main extends Sprite
 		// Gotta run this before any assets get loaded.
 		ModCore.initialize();
 
-		#if !mobile
+		#if !windows
 		fpsCounter = new KadeEngineFPS(10, 3, 0xFFFFFF);
 		bitmapFPS = ImageOutline.renderImage(fpsCounter, 1, 0x000000, true);
 		bitmapFPS.smoothing = true;
