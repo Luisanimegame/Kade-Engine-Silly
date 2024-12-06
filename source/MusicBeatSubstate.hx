@@ -21,13 +21,6 @@ class MusicBeatSubstate extends FlxSubState
 		super();
 	}
 
-	override function destroy()
-	{
-		Application.current.window.onFocusIn.remove(onWindowFocusOut);
-		Application.current.window.onFocusIn.remove(onWindowFocusIn);
-		super.destroy();
-	}
-
 	override function create()
 	{
 		super.create();

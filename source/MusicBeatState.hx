@@ -144,13 +144,6 @@ class MusicBeatState extends FlxUIState
 
 	private var assets:Array<FlxBasic> = [];
 
-	override function destroy()
-	{
-		Application.current.window.onFocusIn.remove(onWindowFocusOut);
-		Application.current.window.onFocusIn.remove(onWindowFocusIn);
-		super.destroy();
-	}
-
 	override function add(Object:flixel.FlxBasic):flixel.FlxBasic
 	{
 		if (FlxG.save.data.optimize)
