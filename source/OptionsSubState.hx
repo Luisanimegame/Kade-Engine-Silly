@@ -30,12 +30,23 @@ class OptionsSubState extends MusicBeatSubstate
 			var optionText:FlxText = new FlxText(20, 20 + (i * 50), 0, textMenuItems[i], 32);
 			optionText.ID = i;
 			grpOptionsTexts.add(optionText);
+			
+			#if mobile
+			addVirtualPad(LEFT_FULL, A_B);
+			#end
 		}
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		
+		#if mobile
+			if (virtualPad.buttonC.justPressed) {
+			  removeVirtualPad();
+			  openSubState(new mobile.MobileControlsSubState());
+			}
+		#end
 
 		if (controls.UP_P)
 			curSelected -= 1;
