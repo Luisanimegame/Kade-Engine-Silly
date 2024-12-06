@@ -8,7 +8,6 @@ import flixel.tweens.FlxTween;
 import openfl.Lib;
 import Options;
 import Controls.Control;
-import mobile.flixel.FlxVirtualPad;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -115,10 +114,6 @@ class OptionsMenu extends FlxSubState
 	public var descText:FlxText;
 	public var descBack:FlxSprite;
 	
-	var virtualPad:FlxVirtualPad;
-	var removeVirtualPad:FlxVirtualPad;
-	var addVirtualPad:FlxVirtualPad;
-
 	override function create()
 	{
 		options = [
@@ -426,7 +421,6 @@ class OptionsMenu extends FlxSubState
 				
 				#if mobile
 				if (virtualPad.buttonC.justPressed) {
-			    removeVirtualPad();
 				openSubState(new mobile.MobileControlsSubState());
 				}
 				#end
