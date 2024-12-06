@@ -8,6 +8,7 @@ import flixel.tweens.FlxTween;
 import openfl.Lib;
 import Options;
 import Controls.Control;
+import mobile.flixel.FlxVirtualPad;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -17,7 +18,6 @@ import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import mobile.flixel.FlxVirtualPad;
 
 class OptionCata extends FlxSprite
 {
@@ -208,7 +208,7 @@ class OptionsMenu extends FlxSubState
 			cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 			
 			#if mobile
-			addVirtualPad(LEFT_FULL, A_B_C);
+			addVirtualPad(LEFT_FULL, A_B);
 			#end
 		}
 
