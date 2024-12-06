@@ -17,6 +17,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import mobile.flixel.FlxVirtualPad;
 
 class OptionCata extends FlxSprite
 {
@@ -205,6 +206,10 @@ class OptionsMenu extends FlxSubState
 			bg.alpha = 0.6;
 
 			cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+			
+			#if mobile
+			addVirtualPad(LEFT_FULL, A_B_C);
+			#end
 		}
 
 		selectedCat = options[0];
@@ -350,14 +355,14 @@ class OptionsMenu extends FlxSubState
 		var any = false;
 		var escape = false;
 
-		accept = FlxG.keys.justPressed.ENTER || (gamepad != null ? gamepad.justPressed.A : false);
-		right = FlxG.keys.justPressed.RIGHT || (gamepad != null ? gamepad.justPressed.DPAD_RIGHT : false);
-		left = FlxG.keys.justPressed.LEFT || (gamepad != null ? gamepad.justPressed.DPAD_LEFT : false);
-		up = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
-		down = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false);
+		accept = FlxG.keys.justPressed.ENTER || virtualPad.buttonA.justPressed || (gamepad != null ? gamepad.justPressed.A : false);
+		right = FlxG.keys.justPressed.RIGHT || virtualPad.buttonRight.justPressed || (gamepad != null ? gamepad.justPressed.DPAD_RIGHT : false);
+		left = FlxG.keys.justPressed.LEFT || virtualPad.buttonLeft.justPressed || (gamepad != null ? gamepad.justPressed.DPAD_LEFT : false);
+		up = FlxG.keys.justPressed.UP || virtualPad.buttonUp.justPressed || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
+		down = FlxG.keys.justPressed.DOWN || virtualPad.buttonDown.justPressed || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false);
 
 		any = FlxG.keys.justPressed.ANY || (gamepad != null ? gamepad.justPressed.ANY : false);
-		escape = FlxG.keys.justPressed.ESCAPE || (gamepad != null ? gamepad.justPressed.B : false);
+		escape = FlxG.keys.justPressed.ESCAPE || virtualPad.buttonB.justPressed || (gamepad != null ? gamepad.justPressed.B : false);
 
 		if (selectedCat != null && !isInCat)
 		{
@@ -414,6 +419,13 @@ class OptionsMenu extends FlxSubState
 
 					switchCat(options[selectedCatIndex]);
 				}
+				
+				#if mobile
+				if (virtualPad.buttonC.justPressed) {
+			    removeVirtualPad();
+				openSubState(new mobile.MobileControlsSubState());
+				}
+				#end
 
 				if (accept)
 				{

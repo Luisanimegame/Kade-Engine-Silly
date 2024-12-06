@@ -3900,8 +3900,6 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-		/*if ((KeyBinds.gamepad && !FlxG.keys.justPressed.ANY))
-		{*/
 			// PRESSES, check for note hits
 			if (pressArray.contains(true) && generatedMusic)
 			{
@@ -3913,36 +3911,38 @@ class PlayState extends MusicBeatState
 				var directionsAccounted:Array<Bool> = [false, false, false, false]; // we don't want to do judgments for more than one presses
 
 				notes.forEachAlive(function(daNote:Note)
-				{
-					if (daNote.canBeHit && daNote.mustPress && !daNote.wasGoodHit && !directionsAccounted[daNote.noteData])
 					{
-						if (directionList.contains(daNote.noteData))
+						if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit)
 						{
-							directionsAccounted[daNote.noteData] = true;
-							for (coolNote in possibleNotes)
+							if (!directionsAccounted[daNote.noteData])
 							{
-								if (coolNote.noteData == daNote.noteData && Math.abs(daNote.strumTime - coolNote.strumTime) < 10)
-								{ // if it's the same note twice at < 10ms distance, just delete it
-									// EXCEPT u cant delete it in this loop cuz it fucks with the collection lol
-									dumbNotes.push(daNote);
-									break;
+								if (directionList.contains(daNote.noteData))
+								{
+									directionsAccounted[daNote.noteData] = true;
+									for (coolNote in possibleNotes)
+									{
+										if (coolNote.noteData == daNote.noteData && Math.abs(daNote.strumTime - coolNote.strumTime) < 10)
+										{ // if it's the same note twice at < 10ms distance, just delete it
+											// EXCEPT u cant delete it in this loop cuz it fucks with the collection lol
+											dumbNotes.push(daNote);
+											break;
+										}
+										else if (coolNote.noteData == daNote.noteData && daNote.strumTime < coolNote.strumTime)
+										{ // if daNote is earlier than existing note (coolNote), replace
+											possibleNotes.remove(coolNote);
+											possibleNotes.push(daNote);
+											break;
+										}
+									}
 								}
-								else if (coolNote.noteData == daNote.noteData && daNote.strumTime < coolNote.strumTime)
-								{ // if daNote is earlier than existing note (coolNote), replace
-									possibleNotes.remove(coolNote);
+								else
+								{
 									possibleNotes.push(daNote);
-									break;
+									directionList.push(daNote.noteData);
 								}
 							}
 						}
-						else
-						{
-							directionsAccounted[daNote.noteData] = true;
-							possibleNotes.push(daNote);
-							directionList.push(daNote.noteData);
-						}
-					}
-				});
+					});
 
 				for (note in dumbNotes)
 				{
@@ -4002,7 +4002,7 @@ class PlayState extends MusicBeatState
 				for (i in anas)
 					if (i != null)
 						replayAna.anaArray.push(i); // put em all there
-		//}
+
 		if (PlayStateChangeables.botPlay)
 			notes.forEachAlive(function(daNote:Note)
 			{
