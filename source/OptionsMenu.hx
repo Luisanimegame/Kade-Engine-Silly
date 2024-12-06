@@ -236,6 +236,10 @@ class OptionsMenu extends FlxSubState
 		switchCat(selectedCat);
 
 		selectedOption = selectedCat.options[0];
+		
+		#if mobile
+		addVirtualPad(LEFT_FULL, A_B_C);
+		#end
 
 		super.create();
 	}
