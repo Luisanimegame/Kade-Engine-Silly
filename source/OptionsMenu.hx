@@ -350,11 +350,11 @@ class OptionsMenu extends FlxSubState
 		var any = false;
 		var escape = false;
 
-		accept = controls.ACCEPT || (gamepad != null ? gamepad.justPressed.A : false);
-		right = controls.RIGHT || (gamepad != null ? gamepad.justPressed.DPAD_RIGHT : false);
-		left = controls.LEFT || (gamepad != null ? gamepad.justPressed.DPAD_LEFT : false);
-		up = controls.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
-		down = controls.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false);
+		accept = FlxG.keys.justPressed.ENTER || (gamepad != null ? gamepad.justPressed.A : false);
+		right = FlxG.keys.justPressed.RIGHT || (gamepad != null ? gamepad.justPressed.DPAD_RIGHT : false);
+		left = FlxG.keys.justPressed.LEFT || (gamepad != null ? gamepad.justPressed.DPAD_LEFT : false);
+		up = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
+		down = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false);
 
 		any = FlxG.keys.justPressed.ANY || (gamepad != null ? gamepad.justPressed.ANY : false);
 		escape = FlxG.keys.justPressed.ESCAPE || (gamepad != null ? gamepad.justPressed.B : false);
@@ -388,7 +388,7 @@ class OptionsMenu extends FlxSubState
 			if (isInCat)
 			{
 				descText.text = "Please select a category";
-				if (right)
+				if (controls.RIGHT)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
@@ -401,7 +401,7 @@ class OptionsMenu extends FlxSubState
 
 					switchCat(options[selectedCatIndex]);
 				}
-				else if (left)
+				else if (controls.LEFT)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
@@ -422,7 +422,7 @@ class OptionsMenu extends FlxSubState
 				}
 				#end
 
-				if (accept)
+				if (controls.ACCEPT)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					selectedOptionIndex = 0;
@@ -430,7 +430,7 @@ class OptionsMenu extends FlxSubState
 					selectOption(selectedCat.options[0]);
 				}
 
-				if (escape)
+				if (controls.BACK)
 				{
 					if (!isInPause)
 						FlxG.switchState(new MainMenuState());
@@ -466,7 +466,7 @@ class OptionsMenu extends FlxSubState
 					}
 				if (selectedOption.acceptType || !selectedOption.acceptType)
 				{
-					if (accept)
+					if (controls.ACCEPT)
 					{
 						var prev = selectedOptionIndex;
 						var object = selectedCat.optionObjects.members[selectedOptionIndex];
@@ -480,7 +480,7 @@ class OptionsMenu extends FlxSubState
 						}
 					}
 
-					if (down)
+					if (controls.DOWN)
 					{
 						if (selectedOption.acceptType)
 							selectedOption.waitingType = false;
@@ -513,7 +513,7 @@ class OptionsMenu extends FlxSubState
 
 						selectOption(options[selectedCatIndex].options[selectedOptionIndex]);
 					}
-					else if (up)
+					else if (controls.UP)
 					{
 						if (selectedOption.acceptType)
 							selectedOption.waitingType = false;
@@ -555,7 +555,7 @@ class OptionsMenu extends FlxSubState
 						selectOption(options[selectedCatIndex].options[selectedOptionIndex]);
 					}
 
-					if (right)
+					if (controls.RIGHT_P)
 					{
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 						var object = selectedCat.optionObjects.members[selectedOptionIndex];
@@ -566,7 +566,7 @@ class OptionsMenu extends FlxSubState
 						object.text = "> " + selectedOption.getValue();
 						Debug.logTrace("New text: " + object.text);
 					}
-					else if (left)
+					else if (controls.LEFT_P)
 					{
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 						var object = selectedCat.optionObjects.members[selectedOptionIndex];
@@ -578,7 +578,7 @@ class OptionsMenu extends FlxSubState
 						Debug.logTrace("New text: " + object.text);
 					}
 
-					if (escape)
+					if (controls.BACK)
 					{
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 
