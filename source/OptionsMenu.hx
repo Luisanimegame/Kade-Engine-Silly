@@ -114,6 +114,8 @@ class OptionsMenu extends FlxSubState
 
 	public var descText:FlxText;
 	public var descBack:FlxSprite;
+	
+	var virtualPad:FlxVirtualPad;
 
 	override function create()
 	{
