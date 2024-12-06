@@ -84,10 +84,6 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-		#if !cpp
-		framerate = 60;
-		#end
-
 		// Run this first so we can see logs.
 		Debug.onInitProgram();
 
@@ -100,7 +96,17 @@ class Main extends Sprite
 		bitmapFPS.smoothing = true;
 		#end
 
-		game = new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen);
+		#if mobile
+		framerate = 60;
+		#end
+		
+        #if mobile
+		gameWidth = 1280;
+		gameHeight = 720;
+		zoom = 1;
+		#end
+		
+		game = new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen);
 		addChild(game);
 
 		#if !mobile
